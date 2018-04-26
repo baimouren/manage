@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mg.mapper.basicinfo.UserMapper">
+	<resultMap type="com.mg.model.basicinfo.UserModel" id="resultModel">
+		<id property="id" column="id"/>
+		<result property="loginName" column="login_name"/>
+		<result property="password" column="password"/>
+		<result property="userName" column="user_name"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<sql id="colums">id,login_name,password,user_name,phone,address,create_time</sql>
+	
+	<insert id="insert" parameterType="com.mg.model.basicinfo.UserModel">
+		insert into(login_name,password,user_name,phone,address,create_time) m_tb_user 
+		values(loginName,password,userName,phone,address,createTime)
+	</insert>
+	
+	<delete id="deletedById">
+		deleted from m_tb_user where id = #{id}
+	</delete>
+	
+	<select id="selectById" parameterType="com.mg.model.basicinfo.UserModel" resultMap="resultModel">
+		select <include refid="colums"/> from m_tb_user 
+		where 1=1 and id = #{id}
+	</select>
+	
+	<select id="selectAll" resultMap="resultModel" >
+		select * from m_tb_user
+	</select>
+	
+	
+	<select id="selectByParam" parameterType="com.mg.model.basicinfo.UserModel" resultMap="resultModel">
+		select <include refid="colums"/> from m_tb_user 
+		where 1=1 
+		<if test="id != null"> and id = #{id}</if>
+		<if test="loginName != null"> and login_name = #{loginName}</if>
+		<if test="password != null"> and password = #{password}</if>
+		<if test="userName != null"> and user_name = #{userName}</if>
+		<if test="phone != null"> and phone = #{phone}</if>
+		<if test="address != null"> and address = #{address}</if>
+		<if test="createTime != null"> and create_time = #{createTime}</if>
+	</select>
+	
+	<select id="selectModelByParam" parameterType="com.mg.model.basicinfo.UserModel" resultMap="resultModel">
+		select <include refid="colums"/> from m_tb_user 
+		where login_name = #{loginName} 
+		and password = #{password} 
+	</select>
+</mapper>

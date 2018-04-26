@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mg.mapper.basicinfo.MenueMapper">
+	<resultMap type="com.mg.model.basicinfo.MenueModel" id="resultModel">
+		<id property="id" column="id"/>
+		<result property="menueName" column="menue_name"/>
+		<result property="menueUrl" column="menue_url"/>
+		<result property="image" column="image"/>
+		<result property="remark" column="remark"/>
+		<result property="notes" column="notes"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<sql id="colums">id,menue_name,menue_url,image,remark,notes,create_time</sql>
+	
+	<insert id="insert" parameterType="com.mg.model.basicinfo.MenueModel">
+		insert into(menue_name,menue_url,image,remark,notes,create_time) m_tb_menue 
+		values (#{menueName},#{menueUrl},#{image},#{remark},#{notes},#{createTime})
+	</insert>
+	
+	<insert id="inserts" parameterType="java.util.List">
+		insert into m_tb_menue
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			menue_name,menue_url,image,remark,notes,create_time 
+		</trim>
+			values
+		<foreach collection="list" item="item" index="index"  separator="," > 
+			<trim prefix="(" suffix=")" suffixOverrides=",">		
+				#{item.menueName},#{item.menueUrl},#{item.image},#{item.remark},#{item.notes},#{item.createTime}
+			</trim>
+		</foreach>	
+	</insert>
+	
+	<delete id="deletedById">
+		deleted from m_tb_menue where id = #{id}
+	</delete>
+	
+	<select id="selectById" parameterType="com.mg.model.basicinfo.MenueModel" resultMap="resultModel">
+		select <include refid="colums"/> from m_tb_menue 
+		where 1=1 and id = #{id}
+	</select>
+	
+	<select id="selectAll" resultMap="resultModel" >
+		select * from m_tb_menue
+	</select>
+	
+	
+	<select id="selectByParam" parameterType="com.mg.model.basicinfo.MenueModel" resultMap="resultModel">
+		select <include refid="colums"/> from m_tb_menue 
+		where 1=1 
+		<if test="id != null"> and id = #{id}</if>
+		<if test="menueName != null"> and menue_name = #{menueName}</if>
+		<if test="menueUrl != null"> and menue_url = #{menueUrl}</if>
+		<if test="image != null"> and image = #{image}</if>
+		<if test="remark != null"> and remark = #{remark}</if>
+		<if test="notes != null"> and notes = #{notes}</if>
+		<if test="createTime != null"> and create_time = #{createTime}</if>
+	</select>
+	
+	<select id="selectBySql" resultMap="resultModel">
+		select <include refid="colums"/> from m_tb_menue 
+		where 1=1 #{sql}
+	</select>
+	
+</mapper>

@@ -1,0 +1,11 @@
+*{
+	margin:0 0;
+	padding:0 0;
+}
+
+input {
+	margin:5px 5px;
+	color:#d5d6db;
+	background-color:#f9f9f9;
+	line-height:20px;
+}

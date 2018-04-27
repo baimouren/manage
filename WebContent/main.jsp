@@ -15,7 +15,7 @@
 <script type="text/javascript" src="js/getRootPath.js" charset="UTF-8"></script>
 
 <script type="text/javascript" src="js/main/main.js"></script>
-<title>系统主页</title>
+<title>系统主页-${cookie.JSESSIONID.value} }</title>
 </head>
 <body>
 	<div>

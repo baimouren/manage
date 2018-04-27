@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,60 +69,45 @@ public class FileServiceImpl implements IFileService {
     }
 
     @Override
-    public void insert(FileModle file) {
-        fileMapper.insert(file);
+    public Map<String, Object> searchFileName(Map<String, String[]> parameterMap) {
+        Map<String, Object> reMap = new HashMap<>();
+        Set<String> keySet = parameterMap.keySet();
 
-    }
-
-    @Override
-    public void inserts(List<FileModle> arrayFiles) {
-
-        fileMapper.inserts(arrayFiles);
-
-    }
-
-    @Override
-    public void deletedById(int id) {
-        fileMapper.deletedById(id);
-
-    }
-
-    @Override
-    public List<FileModle> selectById(Integer id) {
-        List<FileModle> selectFile = fileMapper.selectById(id);
-        return selectFile;
-    }
-
-    @Override
-    public List<FileModle> selectAll() {
-        List<FileModle> fileList = fileMapper.selectAll();
-        return fileList;
-    }
-
-    @Override
-    public List<FileModle> selectByParam(FileModle file) {
-        List<FileModle> fileList = fileMapper.selectByParam(file);
-        return fileList;
-    }
-
-    @Override
-    public List<FileModle> selectBySql(Map<String, String> map) {
-        List<FileModle> fileList = fileMapper.selectBySql(map);
-        return fileList;
-    }
-
-    @Override
-    public List<FileModle> searchFileName(Map<String, String[]> parameterMap) {
+        Integer page = null, pageSize = null;
         if (parameterMap.isEmpty() || parameterMap.get("url")[0] == null) {
             throw new RuntimeException("参数不能为空");
         }
+        if (keySet.contains("page")) {
+            page = Integer.valueOf(parameterMap.get("page")[0]);
+        }
+        if (keySet.contains("pageSize")) {
+            pageSize = Integer.valueOf(parameterMap.get("pageSize")[0]);
+        }
 
+        // 按名称模糊查询
         Map<String, String> map = new HashMap<String, String>();
         StringBuffer strb = new StringBuffer();
-        strb.append(" AND NAME LIKE '%" + parameterMap.get("url")[0] + "%'");
+        String wstr = " NAME LIKE '%" + parameterMap.get("url")[0] + "%' ";
+        strb.append(" AND " + wstr);
         map.put("sql", strb.toString());
-        List<FileModle> selectBySql = selectBySql(map);
-        return selectBySql;
+        List<FileModle> selectTotalBySql = fileMapper.selectBySql(map);
+
+        // 查询+1
+        Map<String, String> upMap = new HashMap<String, String>();
+        StringBuffer str = new StringBuffer();
+        str.append(" UPDATE M_TB_FILE SET CLICKS = CLICKS + 1 WHERE " + wstr);
+        upMap.put("sql", str.toString());
+        fileMapper.excuteBySql(upMap);
+
+        // 分页
+        strb.append(" LIMIT " + (page - 1) * pageSize + "," + page * pageSize);
+        map.put("sql", strb.toString());
+        List<FileModle> selectBySql = fileMapper.selectBySql(map);
+
+        reMap.put("list", selectBySql);
+        reMap.put("total", selectTotalBySql.size());
+
+        return reMap;
     }
 
 }

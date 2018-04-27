@@ -39,7 +39,8 @@ public class FileController extends BaseController {
     @ResponseBody
     @RequestMapping("searchFileName")
     public Map<String, Object> searchFileName(HttpServletRequest request) throws IOException {
-        List<FileModle> searchFileName = fileService.searchFileName(request.getParameterMap());
-        return getReturnMap(searchFileName);
+        Map<String, Object> searchFileName = fileService.searchFileName(request.getParameterMap());
+
+        return getReturnPageMap(searchFileName);
     }
 }

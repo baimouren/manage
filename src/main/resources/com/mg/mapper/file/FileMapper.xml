@@ -41,6 +41,47 @@
 		deleted from m_tb_file where id = #{id}
 	</delete>
 	
+	<update id="updateBySql">
+		update m_tb_file 
+		<if test="name != null"> and name = #{name}</if>
+		<if test="fileType != null"> and file_type = #{fileType}</if>
+		<if test="clicks != null"> and clicks = #{clicks}</if>
+		<if test="url != null"> and url = #{url}</if>
+		<if test="author != null"> and author = #{author}</if>
+		<if test="publicationDate != null"> and publication_date = #{publicationDate}</if>
+		<if test="publication != null"> and publication = #{publication}</if>
+		<if test="price != null"> and price = #{price}</if>
+		<if test="image != null"> and image = #{image}</if>
+		<if test="remark != null"> and remark = #{remark}</if>
+		<if test="notes != null"> and notes = #{notes}</if>
+		<if test="createTime != null"> and create_time = #{createTime}</if>
+		where 1=1 
+		AND #{sql}
+	</update>
+	
+	<!--批量更新 -->
+	<update id="updatesByIds" parameterType="java.util.List">
+		<foreach collection="records" item="item" index="index" open="" close="" separator=";">	
+			UPDATE m_tb_file 
+			<set>
+				<if test="name != null"> and name = #{item.name}</if>
+				<if test="fileType != null"> and file_type = #{item.fileType}</if>
+				<if test="clicks != null"> and clicks = #{item.clicks}</if>
+				<if test="url != null"> and url = #{item.url}</if>
+				<if test="author != null"> and author = #{item.author}</if>
+				<if test="publicationDate != null"> and publication_date = #{item.publicationDate}</if>
+				<if test="publication != null"> and publication = #{item.publication}</if>
+				<if test="price != null"> and price = #{item.price}</if>
+				<if test="image != null"> and image = #{item.image}</if>
+				<if test="remark != null"> and remark = #{item.remark}</if>
+				<if test="notes != null"> and notes = #{item.notes}</if>
+				<if test="createTime != null"> and create_time = #{item.createTime}</if>
+			</set>
+				where 1=1 
+				AND ID = #{item.id}
+		</foreach>
+	</update>
+	
 	<select id="selectById" parameterType="com.mg.model.file.FileModle" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_file 
 		where 1=1 and id = #{id}
@@ -72,6 +113,10 @@
 	<select id="selectBySql" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_file 
 		where 1=1 ${sql} 
+	</select>
+	
+	<select id="excuteBySql" resultMap="resultModel">
+		${sql} 
 	</select>
 	
 </mapper>

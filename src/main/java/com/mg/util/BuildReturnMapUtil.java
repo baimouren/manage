@@ -89,5 +89,17 @@ public class BuildReturnMapUtil {
         return result;
     }
 
+    public static Map<String, Object> getReturnPageMap(Map<String, Object> map) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("successMsg", "操作成功");
+        result.put("errorCode", "-1");
+        result.put("errorMsg", null);
+        result.put("rows", map.get("list") == null ? new ArrayList<>() : map.get("list"));
+        result.put("success", true);
+        result.put("total", map.get("total"));
+
+        return result;
+    }
+
 
 }

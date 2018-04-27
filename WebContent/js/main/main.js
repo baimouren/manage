@@ -17,8 +17,9 @@ $(document).ready(function(){
 			{field:'createTime',title:'创建时间',width:150}
 		]],
 		onClickCell: function(index,field,value){
+			
 			if(field==="menueUrl"){
-				window.open(basicUrl+value);
+				window.open(basicUrl+value +"?dateTime = " + (new Date()).getTime());
 			}
 		}
 		

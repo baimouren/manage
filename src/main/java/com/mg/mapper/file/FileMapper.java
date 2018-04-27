@@ -13,6 +13,10 @@ public interface FileMapper {
 
     public void deletedById(int id);
 
+    public void updateBySql(Map<String, String> map);
+
+    public void updatesByIds(Map<String, String> map);
+
     public List<FileModle> selectById(Integer param);
 
     public List<FileModle> selectAll();
@@ -20,5 +24,7 @@ public interface FileMapper {
     public List<FileModle> selectByParam(FileModle file);
 
     public List<FileModle> selectBySql(Map<String, String> map);
+
+    public List<FileModle> excuteBySql(Map<String, String> map);
 
 }

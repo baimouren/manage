@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mg.mapper.basicinfo.UserMapper">
 	<resultMap type="com.mg.model.basicinfo.UserModel" id="resultModel">
-		<id property="id" column="id"/>
+		<id property="rowId" column="row_id"/>
 		<result property="loginName" column="login_name"/>
 		<result property="password" column="password"/>
 		<result property="userName" column="user_name"/>
@@ -11,7 +11,7 @@
 		<result property="createTime" column="create_time"/>
 	</resultMap>
 	
-	<sql id="colums">id,login_name,password,user_name,phone,address,create_time</sql>
+	<sql id="colums">row_id,login_name,password,user_name,phone,address,create_time</sql>
 	
 	<insert id="insert" parameterType="com.mg.model.basicinfo.UserModel">
 		insert into(login_name,password,user_name,phone,address,create_time) m_tb_user 
@@ -19,12 +19,12 @@
 	</insert>
 	
 	<delete id="deletedById">
-		deleted from m_tb_user where id = #{id}
+		deleted from m_tb_user where row_id = #{rowId}
 	</delete>
 	
 	<select id="selectById" parameterType="com.mg.model.basicinfo.UserModel" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_user 
-		where 1=1 and id = #{id}
+		where 1=1 and row_id = #{rowId}
 	</select>
 	
 	<select id="selectAll" resultMap="resultModel" >
@@ -35,7 +35,7 @@
 	<select id="selectByParam" parameterType="com.mg.model.basicinfo.UserModel" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_user 
 		where 1=1 
-		<if test="id != null"> and id = #{id}</if>
+		<if test="rowId != null"> and row_id = #{rowId}</if>
 		<if test="loginName != null"> and login_name = #{loginName}</if>
 		<if test="password != null"> and password = #{password}</if>
 		<if test="userName != null"> and user_name = #{userName}</if>

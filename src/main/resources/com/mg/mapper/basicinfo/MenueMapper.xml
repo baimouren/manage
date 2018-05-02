@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mg.mapper.basicinfo.MenueMapper">
 	<resultMap type="com.mg.model.basicinfo.MenueModel" id="resultModel">
-		<id property="id" column="id"/>
+		<id property="rowId" column="row_id"/>
 		<result property="menueName" column="menue_name"/>
 		<result property="menueUrl" column="menue_url"/>
 		<result property="image" column="image"/>
@@ -11,7 +11,7 @@
 		<result property="createTime" column="create_time"/>
 	</resultMap>
 	
-	<sql id="colums">id,menue_name,menue_url,image,remark,notes,create_time</sql>
+	<sql id="colums">row_id,menue_name,menue_url,image,remark,notes,create_time</sql>
 	
 	<insert id="insert" parameterType="com.mg.model.basicinfo.MenueModel">
 		insert into(menue_name,menue_url,image,remark,notes,create_time) m_tb_menue 
@@ -32,12 +32,12 @@
 	</insert>
 	
 	<delete id="deletedById">
-		deleted from m_tb_menue where id = #{id}
+		deleted from m_tb_menue where row_id = #{rowId}
 	</delete>
 	
 	<select id="selectById" parameterType="com.mg.model.basicinfo.MenueModel" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_menue 
-		where 1=1 and id = #{id}
+		where 1=1 and row_id = #{rowId}
 	</select>
 	
 	<select id="selectAll" resultMap="resultModel" >
@@ -48,7 +48,7 @@
 	<select id="selectByParam" parameterType="com.mg.model.basicinfo.MenueModel" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_menue 
 		where 1=1 
-		<if test="id != null"> and id = #{id}</if>
+		<if test="rowId != null"> and row_id = #{rowId}</if>
 		<if test="menueName != null"> and menue_name = #{menueName}</if>
 		<if test="menueUrl != null"> and menue_url = #{menueUrl}</if>
 		<if test="image != null"> and image = #{image}</if>

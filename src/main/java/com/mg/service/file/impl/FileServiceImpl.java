@@ -110,4 +110,10 @@ public class FileServiceImpl implements IFileService {
         return reMap;
     }
 
+    @Override
+    public void inserts(List<FileModle> searchFilePackageName) {
+        fileMapper.inserts(searchFilePackageName);
+
+    }
+
 }

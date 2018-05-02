@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mg.mapper.file.FileMapper">
 	<resultMap type="com.mg.model.file.FileModle" id="resultModel">
-		<id property="id" column="id"/>
+		<id property="rowId" column="row_id"/>
 		<result property="name" column="name"/>
 		<result property="fileType" column="file_type"/>
 		<result property="clicks" column="clicks"/>
@@ -17,7 +17,7 @@
 		<result property="createTime" column="create_time"/>
 	</resultMap>
 	
-	<sql id="colums">id,name,file_type,clicks,url,author,publication_date,publication,price,image,remark,notes,create_time</sql>
+	<sql id="colums">row_id,name,file_type,clicks,url,author,publication_date,publication,price,image,remark,notes,create_time</sql>
 	
 	<insert id="insert" parameterType="com.mg.model.file.FileModle">
 		insert into(name,file_type,clicks,url,author,publication_date,publication,price,image,remark,notes,create_time) m_tb_file 
@@ -78,13 +78,13 @@
 				<if test="createTime != null"> and create_time = #{item.createTime}</if>
 			</set>
 				where 1=1 
-				AND ID = #{item.id}
+				AND row_id = #{item.rowId}
 		</foreach>
 	</update>
 	
 	<select id="selectById" parameterType="com.mg.model.file.FileModle" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_file 
-		where 1=1 and id = #{id}
+		where 1=1 and row_id = #{rowId}
 	</select>
 	
 	<select id="selectAll" resultMap="resultModel" >
@@ -95,7 +95,7 @@
 	<select id="selectByParam" parameterType="com.mg.model.file.FileModle" resultMap="resultModel">
 		select <include refid="colums"/> from m_tb_file 
 		where 1=1 
-		<if test="id != null"> and id = #{id}</if>
+		<if test="rowId != null"> and row_id = #{rowId}</if>
 		<if test="name != null"> and name = #{name}</if>
 		<if test="fileType != null"> and file_type = #{fileType}</if>
 		<if test="clicks != null"> and clicks = #{clicks}</if>

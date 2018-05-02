@@ -10,7 +10,7 @@ public class MenueModel implements Serializable {
     private static final long serialVersionUID = -8566139135922550210L;
 
     // id
-    private Integer id;
+    private Integer rowId;
 
     // 菜单名称
     private String menueName;
@@ -30,12 +30,12 @@ public class MenueModel implements Serializable {
     // 创建时间
     private Date createTime;
 
-    public Integer getId() {
-        return id;
+    public Integer getRowId() {
+        return rowId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRowId(Integer rowId) {
+        this.rowId = rowId;
     }
 
     public String getMenueName() {
@@ -88,7 +88,8 @@ public class MenueModel implements Serializable {
 
     @Override
     public String toString() {
-        return "MenueModel [id=" + id + ", menueName=" + menueName + ", menueUrl=" + menueUrl + ", image=" + image + ", remark=" + remark + ", notes="
+        return "MenueModel [id=" + rowId + ", menueName=" + menueName + ", menueUrl=" + menueUrl + ", image=" + image + ", remark=" + remark
+                + ", notes="
                 + notes + ", create_time=" + createTime + "]";
     }
 

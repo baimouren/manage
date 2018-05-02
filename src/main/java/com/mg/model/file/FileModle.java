@@ -5,7 +5,7 @@ import java.util.Date;
 import com.mg.util.DateUtil;
 
 public class FileModle {
-    private Integer id;
+    private Integer rowId;
 
     // 名称
     private String name;
@@ -43,12 +43,12 @@ public class FileModle {
     // 创建时间
     private Date createTime;
 
-    public Integer getId() {
-        return id;
+    public Integer getRowId() {
+        return rowId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRowId(Integer rowId) {
+        this.rowId = rowId;
     }
 
     public String getName() {
@@ -149,7 +149,7 @@ public class FileModle {
 
     @Override
     public String toString() {
-        return "FileModle [id=" + id + ", name=" + name + ", fileType=" + fileType + ", clicks=" + clicks + ", url=" + url + ", author=" + author
+        return "FileModle [id=" + rowId + ", name=" + name + ", fileType=" + fileType + ", clicks=" + clicks + ", url=" + url + ", author=" + author
                 + ", publicationDate=" + publicationDate + ", publication=" + publication + ", price=" + price + ", image=" + image + ", remark="
                 + remark + ", notes=" + notes + ", createTime=" + createTime + "]";
     }

@@ -7,7 +7,7 @@ public class UserModel implements Serializable{
 	
 	private static final long serialVersionUID = -6354205091038256671L;
 	
-	private Integer id;
+    private Integer rowId;
 	private String loginName;
 	private String password;
 	private String userName;
@@ -15,11 +15,12 @@ public class UserModel implements Serializable{
 	private String address;
     private Date createTime;
 
-	public Integer getId() {
-		return id;
+    public Integer getRowId() {
+        return rowId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+    public void setRowId(Integer rowId) {
+        this.rowId = rowId;
 	}
 	public String getLoginName() {
 		return loginName;

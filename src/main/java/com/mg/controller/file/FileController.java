@@ -29,6 +29,7 @@ public class FileController extends BaseController {
         return getReturnMap(searchFilePackageName);
     }
 
+    @ResponseBody
     @RequestMapping("editInsertsFilePackageName")
     public Map<String, Object> editInsertsFilePackageName(HttpServletRequest request) throws IOException {
         List<FileModle> searchFilePackageName = fileService.searchFilePackage(request.getParameterMap());

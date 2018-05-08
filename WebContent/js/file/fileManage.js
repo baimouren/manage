@@ -7,9 +7,7 @@ var pageSize = 10;
 
 $(document).ready( function(){
 	
-	/**
-	 * 查询文件夹
-	 */
+	/* 查询文件夹 */
   $("#searchPackage").click(function(){
 	  if($.trim($("#url").val()).length>0){
 
@@ -43,24 +41,9 @@ $(document).ready( function(){
 		  $("#massage").text("不能为空！");
 		  $("#massage").css({"color":"red"});
 	  }
-	  
-	  $("#editPackage").click(function(){
-		var url = $.trim($("#url").val());
-		$('#send').click(function(){
-		     $.ajax({
-		         type: "POST",
-		         url: basicUrl + insertUrl,
-		         data: { url:url },
-		         dataType: "json",
-		         success: function(data){
-		        	 alert("保存成功！");
-		         }
-		     });
-		});
-		  
-	  })
+
   })
-  
+	  
   /**
    * 获取焦点 删除内容
    */
@@ -113,23 +96,19 @@ $(document).ready( function(){
 		  $("#massage").text("不能为空！");
 		  $("#massage").css({"color":"red"});
 	  }
-	  
-	  $("#editPackage").click(function(){
-		var url = $.trim($("#url").val());
-		$('#send').click(function(){
-		     $.ajax({
-		         type: "POST",
-		         url: basicUrl + insertUrl,
-		         data: { url:url },
-		         dataType: "json",
-		         success: function(data){
-		        	 alert("保存成功！");
-		         }
-		     });
-		});
-		  
-	  })
   })
-
+	  
+  /* 新增到数据库 */
+  $("#editPackage").click(function(){
+	     $.ajax({
+	         type: "POST",
+	         url: basicUrl + insertUrl,
+	         data: { url:$.trim($("#url").val()) },
+	         dataType: "json",
+	         success: function(data){
+	        	 alert("保存成功！");
+	         }
+	     });
+	})
 
 });
